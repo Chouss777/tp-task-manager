@@ -1,4 +1,4 @@
-  <?php
+<?php
 require 'db.php';
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS tasks (
@@ -13,25 +13,29 @@ $tasks = $pdo->query("SELECT * FROM tasks")->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Task Manager</title>
-    >
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Task Manager</h1>
+<div class="app">
 
-<form action="add_task.php" method="POST">
-    <input name="title" placeholder="Nouvelle tâche">
-    <button>Ajouter</button>
-</form>
+    <h1>Task Manager</h1>
 
-<ul>
-    <?php foreach ($tasks as $task): ?>
-        >
-            <?= $task['title'] ?>
-            <a href="delete_task.php?id=<?= $task['id'] ?>">Supprimer</a>
-        </li>
-    <?php endforeach; ?>
-</ul>
+    <form action="add_task.php" method="POST">
+        <input name="title" placeholder="Nouvelle tâche">
+        <button>Ajouter</button>
+    </form>
+
+    <ul>
+        <?php foreach ($tasks as $task): ?>
+            <li>
+                <span><?= htmlspecialchars($task['title']) ?></span>
+                <a href="delete_task.php?id=<?= $task['id'] ?>">Supprimer</a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+</div>
 
 </body>
 </html>
